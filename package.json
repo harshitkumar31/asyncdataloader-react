@@ -60,5 +60,13 @@
     "webpack": "^1.13.1"
   },
   "author": "Harshit Kumar (https://github.com/harshitkumar31)",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshitkumar31/react-asyncdataloader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/harshitkumar31/react-asyncdataloader/issues"
+  },
+  "homepage": "https://github.com/harshitkumar31/react-asyncdataloader#readme"
 }
