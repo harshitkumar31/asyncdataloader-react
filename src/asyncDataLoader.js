@@ -17,7 +17,7 @@ const propTypes = {
 };
 
 /**
- * AsyncDataLoaderV2 is a Higher Order Component which takes responsibility of fetching data of
+ * AsyncDataLoader is a Higher Order Component which takes responsibility of fetching data of
  * the Wrapped Component and offers many options like showing an interface preview of the Wrapped
  * Component while data is being fetched, refetch data after specified time
  * @param  {React.Component} WrappedComponent                 The Component to be rendered;
@@ -58,7 +58,7 @@ const propTypes = {
  *                                                            If not specified, a default retry is shown
  * @return {React.Component}
  */
-const AsyncDataLoaderV2 = (WrappedComponent, { componentName, refreshInterval, wrappedComponentMapStateToProps, wrappedComponentMapDispatchToProps, enforceNoPreview, enforceNoRetry }, InterfacePreview, RetryComponent) => {
+const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wrappedComponentMapStateToProps, wrappedComponentMapDispatchToProps, enforceNoPreview, enforceNoRetry }, InterfacePreview, RetryComponent) => {
   const asyncDataLoaderMapStateToProps = (state) => ({
     asyncLoadStatus: state.asyncDataLoaderV2.components, // AsyncDataLoaderV2 is subscribed to this,
                                                          // but each instance of AsyncDataLoaderV2 should only
@@ -121,21 +121,18 @@ const AsyncDataLoaderV2 = (WrappedComponent, { componentName, refreshInterval, w
       WrappedComponent.fetchDataAsync(this.props.dispatch, params, location, this.props).then((res, rej) => {
         // const obj = {};
         const loadCount = asyncLoadStatus[componentName] && asyncLoadStatus[componentName].loadCount + 1 || 1;
-        if (res.error && ((res.status && res.status >= 500) || !res.status)) {
-          obj[componentName] = {
-            loaded: 'error',
-          };
-          this.props.dispatch(componentLoaded(obj));
-        } else {
           obj[componentName] = {
             loaded: 'true',
             loadCount,
             loadTime: new Date().getTime(),
           };
           this.props.dispatch(componentLoaded(obj));
-        }
-      }).catch(e => {
+        }).catch(e => {
         console.log('Error in asyncDataLoaderV2', e);
+        obj[componentName] = {
+            loaded: 'error',
+          };
+          this.props.dispatch(componentLoaded(obj));
       });
     }
 

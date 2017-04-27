@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "build": "npm run build:lib && npm run build:npm && npm run build:min",
-    "build:lib": "babel src --out-dir lib",
+    "build:lib": "babel src --out-dir lib && cp assets/* lib/",
     "build:npm": "NODE_ENV=development webpack src/index.js dist/asyncdataloader-react.js",
     "build:min": "NODE_ENV=production webpack src/index.js dist/asyncdataloader-react.min.js",
     "test": "mocha --compilers js:babel-register --recursive 'src/__test__/*'",
