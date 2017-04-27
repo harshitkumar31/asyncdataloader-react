@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 // import './index.scss';
 
-const retryImage = require('./retry.png');
+// const retryImage = require('./retry.png');
 
 const propTypes = {
   onClick: PropTypes.func,

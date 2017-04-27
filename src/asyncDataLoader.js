@@ -4,7 +4,7 @@ import { componentLoaded } from './redux';
 import { withRouter } from 'react-router';
 import RetryButton from './retryButton';
 
-const loadingGif = require('./loading.gif');
+// const loadingGif = require('./loading.gif');
 
 const DefaultLoadingDiv = (props) => (<div><img role="presentation" /></div>);
 
