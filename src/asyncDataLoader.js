@@ -177,4 +177,4 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
   return withRouter(connect(mapStateToProps, mapDispatchToProps)(AsyncLoaderWrappedComponent));
 };
 
-export default AsyncDataLoaderV2;
+export default AsyncDataLoader;
