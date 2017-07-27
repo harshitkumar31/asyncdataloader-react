@@ -78,6 +78,9 @@ Component while data is being fetched, refetch data after specified time.
     InterfacePreview);
 
 
+It also allows nested components(you can have multiple components with asyncDataLoader nested at different levels).
+
+
 ### Parameters
 ### @param  {React.Component} WrappedComponent
 
