@@ -60,7 +60,7 @@ const propTypes = {
  */
 const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wrappedComponentMapStateToProps, wrappedComponentMapDispatchToProps, enforceNoPreview, enforceNoRetry }, InterfacePreview, RetryComponent) => {
   const asyncDataLoaderMapStateToProps = (state) => ({
-    asyncLoadStatus: state.asyncDataLoaderV2 && state.asyncDataLoaderV2.components && state.asyncDataLoaderV2.components[componentName], // AsyncDataLoaderV2 is subscribed to this,
+    asyncLoadStatus: state.asyncDataLoader && state.asyncDataLoader.components && state.asyncDataLoader.components[componentName], // AsyncDataLoaderV2 is subscribed to this,
     //state.asyncDataLoader.components, // AsyncDataLoaderV2 is subscribed to this,
                                                          // but each instance of AsyncDataLoaderV2 should only
                                                          // be subscribed to the loadStatus of the WrappedComponent.
