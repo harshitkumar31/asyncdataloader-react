@@ -60,7 +60,8 @@ const propTypes = {
  */
 const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wrappedComponentMapStateToProps, wrappedComponentMapDispatchToProps, enforceNoPreview, enforceNoRetry }, InterfacePreview, RetryComponent) => {
   const asyncDataLoaderMapStateToProps = (state) => ({
-    asyncLoadStatus: state.asyncDataLoader.components, // AsyncDataLoaderV2 is subscribed to this,
+    asyncLoadStatus: state.asyncDataLoaderV2 && state.asyncDataLoaderV2.components && state.asyncDataLoaderV2.components[componentName], // AsyncDataLoaderV2 is subscribed to this,
+    //state.asyncDataLoader.components, // AsyncDataLoaderV2 is subscribed to this,
                                                          // but each instance of AsyncDataLoaderV2 should only
                                                          // be subscribed to the loadStatus of the WrappedComponent.
                                                          // To ensure this behaviour, we check if only the WrappedComponent's
@@ -120,7 +121,7 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
       }
       WrappedComponent.fetchDataAsync(this.props.dispatch, params, location, this.props).then((res, rej) => {
         // const obj = {};
-        const loadCount = asyncLoadStatus[componentName] && asyncLoadStatus[componentName].loadCount + 1 || 1;
+        const loadCount = asyncLoadStatus && asyncLoadStatus.loadCount + 1 || 1;
           obj[componentName] = {
             loaded: 'true',
             loadCount,
@@ -139,7 +140,7 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
     render() {
       const { asyncLoadStatus } = this.props;
       const interfacePreview = InterfacePreview ? <InterfacePreview /> : <DefaultLoadingDiv />;
-      const loaded = asyncLoadStatus[componentName] ? asyncLoadStatus[componentName].loaded : 'false';
+      const loaded = (asyncLoadStatus && asyncLoadStatus.loaded) || 'false';
       if (loaded === 'true') {
         // WrappedComponent Dont need asyncLoadStatus prop, so making it null will prevent some rerenders ;-)
         return <WrappedComponent ref={componentName} fetch={this.fetch} {...this.props} asyncLoadStatus={null} />;
