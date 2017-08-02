@@ -15,14 +15,14 @@ Component while data is being fetched, refetch data after specified time.
 ### Step-1
   Add the reducer to your redux reducers
 
-    ```javascript
+```javascript
     import {reducer} from 'asyncdataloader-react';
-    
+
     const reducers = {
       // your other reducers
-      asyncDataLoader: reducer  
-    }
-    ```
+      asyncDataLoader: reducer,
+    };
+```
 
   Add the following in your redux initial state
   
@@ -38,7 +38,7 @@ Component while data is being fetched, refetch data after specified time.
 
 ### Step-2
 
-    ```javascript
+```javascript
     import React, { PropTypes } from 'react';
     import { asyncDataLoader } from 'asyncdataloader-react';
 
@@ -90,8 +90,7 @@ Component while data is being fetched, refetch data after specified time.
       refreshInterval: 60000,
     },
     InterfacePreview);
-
-    ```
+```
 
 
 It also allows nested components(you can have multiple components with asyncDataLoader nested at different levels).
