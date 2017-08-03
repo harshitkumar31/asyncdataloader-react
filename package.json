@@ -1,6 +1,6 @@
 {
   "name": "asyncdataloader-react",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "AsyncDataLoader is a Higher Order Component which takes responsibility of fetching data of the Wrapped Component and offers many options like showing an interface preview of the Wrapped Component while data is being fetched, refetch data after specified time",
   "main": "./lib/index.js",
   "scripts": {
