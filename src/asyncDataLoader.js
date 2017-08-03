@@ -8,6 +8,9 @@ import RetryButton from './retryButton';
 
 const DefaultLoadingDiv = (props) => (<div><img role="presentation" /></div>);
 
+const LOADED_FALSE = 2;
+const LOADED_ERROR = 3;
+const LOADED_TRUE = 1;
 
 const propTypes = {
   params: PropTypes.object,
@@ -35,7 +38,7 @@ const propTypes = {
  *                                                            the component.
  *                                                            Async Load Status of a Component is of the form :
  *                                                            asyncLoadStatus[componentName] : {
- *                                                              loaded: 'true'/'false'/'error',
+ *                                                              loaded: 1/2/3,(1: Loaded Successfully, 2: Not Loaded, 3: Error while Loading)
  *                                                              loadCount: 1...,
  *                                                              loadTime: 12345(in milliseconds),
  *                                                             }
@@ -105,7 +108,7 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
       }
       const obj = {};
       obj[componentName] = {
-        loaded: 'false',
+        loaded: LOADED_FALSE,
       };
       this.props.dispatch(componentLoaded(obj));
     }
@@ -115,7 +118,7 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
       const obj = {};
       if (!refreshInterval) {
         obj[componentName] = {
-          loaded: 'false',
+          loaded: LOADED_FALSE,
         };
         this.props.dispatch(componentLoaded(obj));
       }
@@ -123,7 +126,7 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
         // const obj = {};
         const loadCount = asyncLoadStatus && asyncLoadStatus.loadCount + 1 || 1;
           obj[componentName] = {
-            loaded: 'true',
+            loaded: LOADED_TRUE,
             loadCount,
             loadTime: new Date().getTime(),
           };
@@ -131,7 +134,7 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
         }).catch(e => {
         console.log('Error in asyncDataLoaderV2', e);
         obj[componentName] = {
-            loaded: 'error',
+            loaded: LOADED_ERROR,
           };
           this.props.dispatch(componentLoaded(obj));
       });
@@ -140,11 +143,11 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
     render() {
       const { asyncLoadStatus } = this.props;
       const interfacePreview = InterfacePreview ? <InterfacePreview /> : <DefaultLoadingDiv />;
-      const loaded = (asyncLoadStatus && asyncLoadStatus.loaded) || 'false';
-      if (loaded === 'true') {
+      const loaded = (asyncLoadStatus && asyncLoadStatus.loaded) || LOADED_FALSE;
+      if (loaded === LOADED_TRUE) {
         // WrappedComponent Dont need asyncLoadStatus prop, so making it null will prevent some rerenders ;-)
         return <WrappedComponent ref={componentName} fetch={this.fetch} {...this.props} asyncLoadStatus={null} />;
-      } else if (loaded === 'false') {
+      } else if (loaded === LOADED_FALSE) {
         if (!enforceNoPreview) {
           return interfacePreview;
         }

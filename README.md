@@ -57,6 +57,7 @@ Component while data is being fetched, refetch data after specified time.
            if (req.status == 200) {
             // Resolve the promise with the response text
              resolve(req.response);
+             // Dispatch actions, to store response in redux
            } else {
             // Otherwise reject with the status text
             // which will hopefully be a meaningful error
@@ -112,7 +113,7 @@ If you want to refetch data invoke this.props.fetch() inside the WrappedComponen
    Async Load Status of a Component is of the form : 
      
      asyncLoadStatus[componentName] : {
-      loaded: 'true'/'false'/'error',
+      loaded: 1/2/3,(1: Loaded Successfully, 2: Not Loaded, 3: Error while Loading)
       loadCount: 1...,
       loadTime: 12345(in milliseconds),
     }
