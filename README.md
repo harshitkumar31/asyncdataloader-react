@@ -123,7 +123,7 @@ If you want to refetch data invoke this.props.fetch() inside the WrappedComponen
    data is fetched again. If not specified, data is only fetched once.
 
 
- ### @param  {function} options.wrappedComponentMapStateToProps
+### @param  {function} options.wrappedComponentMapStateToProps
    If the component needs to be connected to the redux store using 'connect' from 'react-redux',then specify mapStateToProps as wrappedComponentMapStateToProps
 
 
