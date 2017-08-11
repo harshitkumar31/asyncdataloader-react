@@ -80,6 +80,14 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
      * Fetch is invoked here to ensure server side rendering
      * If refreshInterval is specified, we invoke setInterval.
      */
+    onOnlineEvent = (e) => {
+      this.startTimer = setInterval(this.fetch, refreshInterval);
+    }
+
+    onOfflineEvent = (e) => {
+      clearInterval(this.startTimer);
+    }
+
     componentWillMount() {
       this.fetch();
     }
@@ -87,14 +95,11 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
       if (refreshInterval) {
         this.startTimer = setInterval(this.fetch, refreshInterval);
         // Clear timer if browser goes offline
-        window.addEventListener('offline', (e) => {
-          clearInterval(this.startTimer);
-        });
+        window.addEventListener('offline', this.onOfflineEvent);
 
-      // Restart timer if browser goes online
-        window.addEventListener('online', (e) => {
-          this.startTimer = setInterval(this.fetch, refreshInterval);
-        });
+        // Restart timer if browser goes online
+        window.addEventListener('online', this.onOnlineEvent);
+
       }
     }
     /**
@@ -106,6 +111,8 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
       if (this.startTimer) {
         clearInterval(this.startTimer);
       }
+      window.removeEventListener('online', this.onOnlineEvent);
+      window.removeEventListener('offline', this.onOfflineEvent);
       const obj = {};
       obj[componentName] = {
         loaded: LOADED_FALSE,
