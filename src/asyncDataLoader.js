@@ -121,7 +121,8 @@ const AsyncDataLoader = (WrappedComponent, { componentName, refreshInterval, wra
     }
 
     fetch() {
-      const { params, location, asyncLoadStatus } = this.props;
+      const { location, asyncLoadStatus } = this.props;
+      let params = this.props.params || this.props.match.params; // If using React Router v4, params are provided as match.params
       const obj = {};
       if (!refreshInterval) {
         obj[componentName] = {
