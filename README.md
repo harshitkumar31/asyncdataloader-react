@@ -1,5 +1,10 @@
 <h1 align="center">asyncdataloader-react</h1>
 
+[![NPM version](https://badge.fury.io/js/badge-list.svg)](http://badge.fury.io/js/badge-list)
+[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
+
+
+
 AsyncDataLoader assumes you are using react-redux (<https://github.com/reactjs/react-redux>)
 
 AsyncDataLoader is a React Higher Order Component which takes responsibility of fetching data of 
